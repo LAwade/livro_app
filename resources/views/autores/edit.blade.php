@@ -1,5 +1,6 @@
 @extends('layout')
 @section('content')
+@section('title', 'Edição Autor - ' . $autor->nome)
 <h2>Editar Autor</h2>
 <form method="POST" action="{{ route('autores.update', $autor) }}">
     @csrf @method('PUT')

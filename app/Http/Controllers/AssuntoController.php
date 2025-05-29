@@ -33,17 +33,17 @@ class AssuntoController extends Controller
             $validated = $request->validate(['descricao' => 'required|string']);
             $assunto = Assunto::create($validated);
             if (!$assunto) {
-                return redirect()->route('livros.index')->withErrors(['error' => 'Erro ao criar assunto']);
+                return redirect()->route('assuntos.index')->withErrors(['error' => 'Erro ao criar assunto']);
             }
-            return redirect()->route('livros.index')->with('success', 'Assunto criado com sucesso');
+            return redirect()->route('assuntos.index')->with('success', 'Assunto criado com sucesso');
         } catch (\Illuminate\Validation\ValidationException $e) {
-            return redirect()->route('livros.index')->withErrors([
+            return redirect()->route('assuntos.index')->withErrors([
                 'message' => 'Erro de validação',
                 'errors' => $e->errors(),
             ]);
         } catch (\Exception $e) {
             Log::channel('database_errors')->error('Erro ao criar assunto: ' . $e->getMessage());
-            return redirect()->route('livros.index')->withErrors(['error' => 'Erro ao criar assunto']);
+            return redirect()->route('assuntos.index')->withErrors(['error' => 'Erro ao criar assunto']);
         }
     }
 
@@ -57,18 +57,18 @@ class AssuntoController extends Controller
             $validated = $request->validate(['descricao' => 'required|string']);
             $assunto->update($validated);
             if (!$assunto) {
-                return redirect()->route('livros.index')->withErrors(['error' => 'Erro ao atualizar assunto']);
+                return redirect()->route('assuntos.index')->withErrors(['error' => 'Erro ao atualizar assunto']);
             }
             $assunto->refresh(); // Refresh the model to get the updated data
-            return redirect()->route('livros.index')->with('success', 'Assunto atualizado com sucesso');
+            return redirect()->route('assuntos.index')->with('success', 'Assunto atualizado com sucesso');
         } catch (\Illuminate\Validation\ValidationException $e) {
-            return redirect()->route('livros.index')->withErrors([
+            return redirect()->route('assuntos.index')->withErrors([
                 'message' => 'Erro de validação',
                 'errors' => $e->errors(),
             ]);
         } catch (\Exception $e) {
             Log::channel('database_errors')->error('Erro ao atualizar assunto: ' . $e->getMessage());
-            return redirect()->route('livros.index')->withErrors(['error' => 'Erro ao atualizar assunto']);
+            return redirect()->route('assuntos.index')->withErrors(['error' => 'Erro ao atualizar assunto']);
         }
     }
 
@@ -76,13 +76,13 @@ class AssuntoController extends Controller
     {
         try {
             if ($assunto->livros()->exists()) {
-                return redirect()->route('livros.index')->withErrors(['error' => 'Não é possível deletar assunto associado a livros']);
+                return redirect()->route('assuntos.index')->withErrors(['error' => 'Não é possível deletar assunto associado a livros']);
             }
             $assunto->delete();
-            return redirect()->route('livros.index')->with('success', 'Assunto deletado com sucesso');
+            return redirect()->route('assuntos.index')->with('success', 'Assunto deletado com sucesso');
         } catch (\Exception $e) {
             Log::channel('database_errors')->error('Erro ao deletar assunto: ' . $e->getMessage());
-            return redirect()->route('livros.index')->withErrors(['error' => 'Erro ao deletar assunto']);
+            return redirect()->route('assuntos.index')->withErrors(['error' => 'Erro ao deletar assunto']);
         }
     }
 }

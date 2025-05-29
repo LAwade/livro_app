@@ -1,5 +1,6 @@
 @extends('layout')
 @section('content')
+@section('title', 'Cadastro de Autores')
 <h2>{{ isset($autor) ? 'Editar Autor' : 'Novo Autor' }}</h2>
 <form method="POST" action="{{ isset($autor) ? route('autores.update', $autor) : route('autores.store') }}">
     @csrf @if(isset($autor)) @method('PUT') @endif

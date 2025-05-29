@@ -1,5 +1,6 @@
 @extends('layout')
 @section('content')
+@section('title', 'Editar Livro - ' . $livro->titulo)
 <h2>Editar Livro</h2>
 <form method="POST" action="{{ route('livros.update', $livro) }}">
     @csrf @method('PUT')

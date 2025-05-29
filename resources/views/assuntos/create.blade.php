@@ -1,5 +1,6 @@
 @extends('layout')
 @section('content')
+@section('title', 'Cadastro de Assuntos')
 <h2>{{ isset($assunto) ? 'Editar Assunto' : 'Novo Assunto' }}</h2>
 <form method="POST" action="{{ isset($assunto) ? route('assuntos.update', $assunto) : route('assuntos.store') }}">
     @csrf @if(isset($assunto)) @method('PUT') @endif

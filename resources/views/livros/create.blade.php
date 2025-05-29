@@ -1,5 +1,6 @@
 @extends('layout')
 @section('content')
+@section('title', 'Cadastro de Livros')
 <h2>Novo Livro</h2>
 <form method="POST" action="{{ route('livros.store') }}">
     @csrf

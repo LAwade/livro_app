@@ -1,6 +1,6 @@
 @extends('layout')
-
 @section('content')
+@section('title', 'Lista dos Livros')
 <h1>Livros</h1>
 <a href="{{ route('livros.create') }}" class="btn btn-sm btn-success mb-3">Novo Livro</a>
 
@@ -25,7 +25,7 @@
                 <a href="{{ route('livros.edit', $livro) }}" class="btn btn-sm btn-warning">Editar</a>
                 <form action="{{ route('livros.destroy', $livro) }}" method="POST" style="display:inline;">
                     @csrf @method('DELETE')
-                    <button onclick="return confirm('Confirmar exclusão?')" class="btn btn-sm btn-danger">Excluir</button>
+                    <button onclick="return confirm('Deseja realmente excluir o livro {{ $livro->titulo }}?')" class="btn btn-sm btn-danger">Excluir</button>
                 </form>
             </td>
         </tr>

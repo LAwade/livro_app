@@ -33,17 +33,17 @@ class AutorController extends Controller
             $validated = $request->validate(['nome' => 'required|string']);
             $autor = Autor::create($validated);
             if (!$autor) {
-                return redirect()->route('livros.index')->withErrors(['error' => 'Erro ao criar autor']);
+                return redirect()->route('autores.index')->withErrors(['error' => 'Erro ao criar autor']);
             }
-            return redirect()->route('livros.index')->with('success', 'Autor criado com sucesso');
+            return redirect()->route('autores.index')->with('success', 'Autor criado com sucesso');
         } catch (\Illuminate\Validation\ValidationException $e) {
-            return redirect()->route('livros.index')->withErrors([
+            return redirect()->route('autores.index')->withErrors([
                 'message' => 'Erro de validação',
                 'errors' => $e->errors(),
             ]);
         } catch (\Exception $e) {
             Log::channel('database_errors')->error('Erro ao criar autor: ' . $e->getMessage());
-            return redirect()->route('livros.index')->withErrors(['error' => 'Ocorreu um erro ao criar o autor.']);
+            return redirect()->route('autores.index')->withErrors(['error' => 'Ocorreu um erro ao criar o autor.']);
         }
     }
 
@@ -57,15 +57,15 @@ class AutorController extends Controller
         try {
             $validated = $request->validate(['nome' => 'required|string']);
             $autor->update($validated);
-            return redirect()->route('livros.index')->with('success', 'Autor atualizado com sucesso');
+            return redirect()->route('autores.index')->with('success', 'Autor atualizado com sucesso');
         } catch (\Illuminate\Validation\ValidationException $e) {
-            return redirect()->route('livros.index')->withErrors([
+            return redirect()->route('autores.index')->withErrors([
                 'message' => 'Erro de validação',
                 'errors' => $e->errors(),
             ]);
         } catch (\Exception $e) {
             Log::channel('database_errors')->error('Erro ao buscar autor para atualização: ' . $e->getMessage());
-            return redirect()->route('livros.index')->withErrors(['error' => 'Erro ao atualizar autor']);
+            return redirect()->route('autores.index')->withErrors(['error' => 'Erro ao atualizar autor']);
         }
     }
 
@@ -73,14 +73,14 @@ class AutorController extends Controller
     {
         try {
             if ($autor->livros()->exists()) {
-                return redirect()->route('livros.index')->withErrors(['error' => 'Autor não pode ser excluído, pois está associado a livros']);
+                return redirect()->route('autores.index')->withErrors(['error' => 'Autor não pode ser excluído, pois está associado a livros']);
             }
 
             $autor->delete();
-            return redirect()->route('livros.index')->with('success', 'Autor excluído com sucesso');
+            return redirect()->route('autores.index')->with('success', 'Autor excluído com sucesso');
         } catch (\Exception $e) {
             Log::channel('database_errors')->error('Erro ao excluir autor: ' . $e->getMessage());
-            return redirect()->route('livros.index')->withErrors(['error' => 'Erro ao excluir autor']);
+            return redirect()->route('autores.index')->withErrors(['error' => 'Erro ao excluir autor']);
         }
     }
 }

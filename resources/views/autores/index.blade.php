@@ -1,5 +1,6 @@
 @extends('layout')
 @section('content')
+@section('title', 'Lista de Autores')
 <h2>Autores</h2>
 <a href="{{ route('autores.create') }}" class="btn btn-success mb-2">Novo Autor</a>
 <table class="table table-bordered">
@@ -17,7 +18,7 @@
                 <a href="{{ route('autores.edit', $autor) }}" class="btn btn-warning btn-sm">Editar</a>
                 <form method="POST" action="{{ route('autores.destroy', $autor) }}" style="display:inline">
                     @csrf @method('DELETE')
-                    <button class="btn btn-danger btn-sm" onclick="return confirm('Deseja excluir esse autor?')">Excluir</button>
+                    <button class="btn btn-danger btn-sm" onclick="return confirm('Deseja excluir o autor {{ $autor->nome }}?')">Excluir</button>
                 </form>
             </td>
         </tr>
