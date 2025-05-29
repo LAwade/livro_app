@@ -79,12 +79,12 @@ class LivroController extends Controller
 
             return redirect()->route('livros.index');
         } catch (\Illuminate\Validation\ValidationException $e) {
-            return view('livros.index', ['errors' => $e->errors()]);
+            Log::channel('database_errors')->error('Erro ao atualizar livro: ' . print_r($e->errors(), true));
+            return redirect()->route('livros.index')->withErrors($e->errors());
         } catch (\Exception $e) {
             Log::channel('database_errors')->error('Erro ao atualizar livro: ' . $e->getMessage());
+            return redirect()->route('livros.index')->withErrors(['error' => 'Erro ao atualizar livro: ' . $e->getMessage()]);
         }
-
-        return redirect()->route('livros.index')->withErrors(['message' => 'Erro ao atualizar livro']);
     }
 
     public function destroy(Livro $livro)
